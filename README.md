@@ -31,6 +31,31 @@ terminal-browser ls # lists open browsers
 terminal-browser action # an agent-browser compatible cli for interacting with open terminal-browsers
 ```
 
+### Herdr: blank pane after setup
+
+In a local Herdr session, a browser pane can stay blank if Kitty graphics was
+enabled after the terminal client attached. This occurs with Herdr 0.8.2 even
+when the browser has loaded the page successfully.
+
+Check `~/.config/herdr/config.toml` (or `HERDR_CONFIG_PATH` if set) for:
+
+```toml
+[experimental]
+kitty_graphics = true
+```
+
+terminal-browser tries to enable this setting automatically. If you enabled it
+manually, run `herdr server reload-config`. Reloading the server configuration
+alone does not enable graphics in an already-attached client: detach with the
+default shortcut **Ctrl+B, then Q**, and run `herdr` from the outer shell to
+reattach. For a named session, use `herdr --session <name>` instead. Your panes
+and agents keep running during detach.
+
+This recovers the `cell_size_unavailable` error from `pane.graphics.info` when
+the client attached before graphics was enabled. See [issue #89](https://github.com/zenbu-labs/terminal-browser/issues/89)
+for other causes of blank panes, including remote sessions and unsupported host
+terminals.
+
 
 
 
