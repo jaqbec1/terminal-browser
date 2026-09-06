@@ -37,6 +37,10 @@ In a local Herdr session, a browser pane can stay blank if Kitty graphics was
 enabled after the terminal client attached. This occurs with Herdr 0.8.2 even
 when the browser has loaded the page successfully.
 
+Before launching a browser, terminal-browser checks the live Herdr graphics
+state. If the attached client has no cell size, it reports the recovery steps
+below instead of opening a blank pane.
+
 Check `~/.config/herdr/config.toml` (or `HERDR_CONFIG_PATH` if set) for:
 
 ```toml
